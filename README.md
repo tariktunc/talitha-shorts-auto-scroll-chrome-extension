@@ -12,6 +12,8 @@
 ![Veri toplamaz](https://img.shields.io/badge/veri-toplanmaz-blue)
 ![Diller](https://img.shields.io/badge/dil-T%C3%BCrk%C3%A7e%20%7C%20English-orange)
 
+**[Tanıtım sayfası](https://tariktunc.github.io/talitha-shorts-auto-scroll-chrome-extension/)** · **[Dökümanlar](https://tariktunc.github.io/talitha-shorts-auto-scroll-chrome-extension/docs.html)** · [GitHub](https://github.com/tariktunc/talitha-shorts-auto-scroll-chrome-extension)
+
 [Özellikler](#özellikler) · [Kurulum](#kurulum) · [Nasıl çalışır](#nasıl-çalışır) · [Gizlilik](#gizlilik-ve-izinler) · [Geliştirme](#geliştirme) · [English](#english)
 
 </div>
@@ -134,5 +136,7 @@ YouTube testleri internete bağlıdır. Shorts yüklenmezse test başarısız de
 **Install (unpacked):** clone the repo, open `chrome://extensions`, enable *Developer mode*, click *Load unpacked*, and pick the project folder.
 
 **Tests:** `node --test` (35 unit tests, no dependencies). End-to-end: `npm install && npx playwright-core install chromium && npm run test:e2e`.
+
+Website and docs: <https://tariktunc.github.io/talitha-shorts-auto-scroll-chrome-extension/>
 
 Made by [Blakfy Studio](https://blakfy.com). Licensed under MIT.
