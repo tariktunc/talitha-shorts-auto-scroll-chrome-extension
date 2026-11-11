@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://tariktunc.github.io/talitha-shorts-auto-scroll-chrome-extension/sitemap.xml
