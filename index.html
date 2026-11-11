@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="tr" data-lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Talitha — Auto Shorts</title>
+<meta name="description" content="YouTube Shorts bitince otomatik olarak bir sonrakine geçen, hafif ve veri toplamayan Chrome eklentisi. Auto-advance for YouTube Shorts.">
+<meta property="og:title" content="Talitha — Auto Shorts">
+<meta property="og:description" content="YouTube Shorts bitince otomatik olarak bir sonrakine geçen, hafif ve veri toplamayan Chrome eklentisi. Auto-advance for YouTube Shorts.">
+<meta property="og:type" content="website">
+<link rel="icon" href="assets/icon128.png">
+<link rel="stylesheet" href="style.css">
+<script>
+(function(){var d=document.documentElement,k='ext-lang',s=null;try{s=localStorage.getItem(k)}catch(e){}
+var l=s||((navigator.language||'tr').toLowerCase().indexOf('tr')===0?'tr':'en');d.setAttribute('data-lang',l);d.lang=l;
+document.addEventListener('DOMContentLoaded',function(){var b=document.getElementById('lang');if(!b)return;
+b.addEventListener('click',function(){var n=d.getAttribute('data-lang')==='tr'?'en':'tr';d.setAttribute('data-lang',n);d.lang=n;try{localStorage.setItem(k,n)}catch(e){}});});})();
+</script>
+</head>
+<body>
+<header class="nav"><div class="wrap">
+<a class="brand" href="index.html"><img src="assets/icon128.png" alt="">Talitha</a>
+<nav>
+<a href="index.html" class="on"><span lang="tr">Tanıtım</span><span lang="en">Overview</span></a>
+<a href="docs.html"><span lang="tr">Dökümanlar</span><span lang="en">Docs</span></a>
+<a class="hide-s" href="https://github.com/tariktunc/talitha-shorts-auto-scroll-chrome-extension">GitHub</a>
+<button class="lang" id="lang" type="button" aria-label="Language">TR / EN</button>
+</nav></div></header>
+
+<section class="hero"><div class="wrap">
+<img class="logo" src="assets/icon128.png" alt="Talitha">
+<h1>Talitha — Auto Shorts</h1>
+<p class="lead"><span lang="tr">YouTube Shorts bitince otomatik olarak bir sonrakine geçen, hafif bir Chrome eklentisi. Elinizi kaydırmaya götürmeyin.</span><span lang="en">A tiny Chrome extension that moves to the next YouTube Short the moment the current one ends. No more swiping.</span></p>
+<div class="btns">
+<a class="btn primary" href="docs.html#kurulum"><span lang="tr">Kurulum</span><span lang="en">Install</span></a>
+<a class="btn ghost" href="https://github.com/tariktunc/talitha-shorts-auto-scroll-chrome-extension">GitHub</a>
+</div>
+<div class="badges"><span>Manifest V3</span><span>v1.3.0</span><span>MIT</span><span><span lang="tr">Veri toplamaz</span><span lang="en">No data collected</span></span><span>TR · EN</span></div>
+</div></section>
+
+<section class="block"><div class="wrap">
+<h2><span lang="tr">Neler yapar</span><span lang="en">What it does</span></h2>
+<p class="sub"><span lang="tr">Tek bir iş yapar ve onu iyi yapar.</span><span lang="en">It does one thing and does it well.</span></p>
+<div class="grid">
+<div class="card"><span class="n">01</span><h3><span lang="tr">Otomatik geçiş</span><span lang="en">Automatic advance</span></h3><p><span lang="tr">Video bitmeden hemen önce "Sonraki video" düğmesine kendisi basar.</span><span lang="en">Presses "Next video" itself just before the clip finishes.</span></p></div>
+<div class="card"><span class="n">02</span><h3><span lang="tr">Tek tıkla aç/kapat</span><span lang="en">One-click toggle</span></h3><p><span lang="tr">Araç çubuğundaki simgeye tıklayın, küçük pencereden eklentiyi açıp kapatın.</span><span lang="en">Click the toolbar icon and flip the switch in the small popup.</span></p></div>
+<div class="card"><span class="n">03</span><h3><span lang="tr">Durum simgede</span><span lang="en">State on the icon</span></h3><p><span lang="tr">YouTube sekmesinde yeşil ON, diğer sekmelerde gri OFF rozeti.</span><span lang="en">Green ON badge on YouTube tabs, grey OFF everywhere else.</span></p></div>
+<div class="card"><span class="n">04</span><h3><span lang="tr">Arka planda bekler</span><span lang="en">Waits in the background</span></h3><p><span lang="tr">Sekme arka plandayken kaydırma durur, geri dönünce devam eder.</span><span lang="en">Scrolling pauses while the tab is hidden and resumes when you return.</span></p></div>
+<div class="card"><span class="n">05</span><h3><span lang="tr">Yalnızca Shorts</span><span lang="en">Shorts only</span></h3><p><span lang="tr">Sadece youtube.com/shorts/ adreslerinde çalışır, başka hiçbir sayfaya dokunmaz.</span><span lang="en">Active only on youtube.com/shorts/ and leaves every other page alone.</span></p></div>
+<div class="card"><span class="n">06</span><h3><span lang="tr">Türkçe ve İngilizce</span><span lang="en">Turkish and English</span></h3><p><span lang="tr">Chrome arayüz diline göre otomatik seçilir.</span><span lang="en">Picked automatically from Chrome's interface language.</span></p></div>
+</div></div></section>
+
+<section class="block alt"><div class="wrap">
+<h2><span lang="tr">Nasıl çalışır</span><span lang="en">How it works</span></h2>
+<p class="sub"><span lang="tr">YouTube Shorts videoyu başa sardığı için "bitti" olayı gelmez. Talitha bunu önceden yakalar.</span><span lang="en">YouTube loops Shorts, so a plain "ended" event never fires. Talitha catches the end ahead of time.</span></p>
+<ol class="steps">
+<li><span lang="tr">Her 250 ms'de adresin <code>/shorts/</code> ile başlayıp başlamadığına bakar.</span><span lang="en">Every 250 ms it checks that the address starts with <code>/shorts/</code>.</span></li>
+<li><span lang="tr">Ekranın ortasını kaplayan videoyu aktif video sayar.</span><span lang="en">The video covering the middle of the screen is treated as the active one.</span></li>
+<li><span lang="tr">Bitmesine 0,35 saniye kala "Sonraki video" düğmesine tıklar; düğme yoksa aşağı ok tuşunu gönderir.</span><span lang="en">0.35 s before the end it clicks "Next video", or sends the down-arrow key if the button is missing.</span></li>
+<li><span lang="tr">Geçişler arasında 1,5 saniye bekler ve aynı videoda iki kez geçmez.</span><span lang="en">It waits 1.5 s between jumps and never advances twice on the same video.</span></li>
+</ol></div></section>
+
+<section class="block"><div class="wrap">
+<h2><span lang="tr">Gizlilik</span><span lang="en">Privacy</span></h2>
+<p class="sub"><span lang="tr">Hiçbir veri toplamaz, hiçbir sunucuya bağlanmaz.</span><span lang="en">Collects no data and talks to no server.</span></p>
+<div class="callout"><span lang="tr">İki izin ister: <code>storage</code> (açık/kapalı durumunu saklamak için) ve yalnızca <code>https://www.youtube.com/*</code> için ana makine erişimi. Başka sitelerin adresini okuyamaz. Analiz, reklam veya izleme kodu yoktur.</span><span lang="en">It asks for two things: <code>storage</code> (to remember on/off) and host access to <code>https://www.youtube.com/*</code> only. It cannot read any other site. No analytics, ads or tracking.</span></div>
+<div class="btns" style="justify-content:flex-start"><a class="btn primary" href="docs.html"><span lang="tr">Dökümanları aç</span><span lang="en">Read the docs</span></a></div>
+</div></section>
+<footer><div class="wrap">
+<span>© 2026 <a href="https://blakfy.com">Blakfy Studio</a> · MIT</span>
+<span><a href="https://github.com/tariktunc/talitha-shorts-auto-scroll-chrome-extension"><span lang="tr">Kaynak kod</span><span lang="en">Source code</span></a> · <a href="https://github.com/tariktunc/talitha-shorts-auto-scroll-chrome-extension/issues"><span lang="tr">Sorun bildir</span><span lang="en">Report an issue</span></a></span>
+</div></footer>
+</body></html>

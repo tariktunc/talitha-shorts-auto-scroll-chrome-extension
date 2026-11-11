@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="tr" data-lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Talitha — Auto Shorts · Docs</title>
+<meta name="description" content="YouTube Shorts bitince otomatik olarak bir sonrakine geçen, hafif ve veri toplamayan Chrome eklentisi. Auto-advance for YouTube Shorts.">
+<meta property="og:title" content="Talitha — Auto Shorts">
+<meta property="og:description" content="YouTube Shorts bitince otomatik olarak bir sonrakine geçen, hafif ve veri toplamayan Chrome eklentisi. Auto-advance for YouTube Shorts.">
+<meta property="og:type" content="website">
+<link rel="icon" href="assets/icon128.png">
+<link rel="stylesheet" href="style.css">
+<script>
+(function(){var d=document.documentElement,k='ext-lang',s=null;try{s=localStorage.getItem(k)}catch(e){}
+var l=s||((navigator.language||'tr').toLowerCase().indexOf('tr')===0?'tr':'en');d.setAttribute('data-lang',l);d.lang=l;
+document.addEventListener('DOMContentLoaded',function(){var b=document.getElementById('lang');if(!b)return;
+b.addEventListener('click',function(){var n=d.getAttribute('data-lang')==='tr'?'en':'tr';d.setAttribute('data-lang',n);d.lang=n;try{localStorage.setItem(k,n)}catch(e){}});});})();
+</script>
+</head>
+<body>
+<header class="nav"><div class="wrap">
+<a class="brand" href="index.html"><img src="assets/icon128.png" alt="">Talitha</a>
+<nav>
+<a href="index.html"><span lang="tr">Tanıtım</span><span lang="en">Overview</span></a>
+<a href="docs.html" class="on"><span lang="tr">Dökümanlar</span><span lang="en">Docs</span></a>
+<a class="hide-s" href="https://github.com/tariktunc/talitha-shorts-auto-scroll-chrome-extension">GitHub</a>
+<button class="lang" id="lang" type="button" aria-label="Language">TR / EN</button>
+</nav></div></header>
+
+<div class="wrap docs">
+<aside class="toc">
+<a href="#kurulum"><span lang="tr">Kurulum</span><span lang="en">Install</span></a><a href="#kullanim"><span lang="tr">Kullanım</span><span lang="en">Usage</span></a><a href="#calisma"><span lang="tr">Nasıl çalışır</span><span lang="en">How it works</span></a>
+<a href="#izinler"><span lang="tr">İzinler</span><span lang="en">Permissions</span></a><a href="#sss"><span lang="tr">Sık sorulanlar</span><span lang="en">FAQ</span></a><a href="#gelistirme"><span lang="tr">Geliştirme</span><span lang="en">Development</span></a><a href="#sinirlar"><span lang="tr">Sınırlar</span><span lang="en">Limits</span></a>
+</aside>
+<article class="doc">
+<h2 id="kurulum"><span lang="tr">Kurulum</span><span lang="en">Install</span></h2>
+<p><span lang="tr">Eklenti henüz Chrome Web Store'da yayınlanmadı, paketlenmemiş olarak yüklenir. Node.js veya başka bir bağımlılık gerekmez.</span><span lang="en">The extension is not on the Chrome Web Store yet; load it unpacked. No Node.js or other dependency is needed.</span></p>
+<ol class="steps">
+<li><span lang="tr">Repoyu indirin veya klonlayın.</span><span lang="en">Download or clone the repository.</span></li>
+<li><span lang="tr">Chrome'da <code>chrome://extensions</code> sayfasını açın.</span><span lang="en">Open <code>chrome://extensions</code> in Chrome.</span></li>
+<li><span lang="tr">Sağ üstten <strong>Geliştirici modu</strong>nu açın.</span><span lang="en">Turn on <strong>Developer mode</strong> (top right).</span></li>
+<li><span lang="tr"><strong>Paketlenmemiş öğe yükle</strong>ye tıklayıp proje klasörünü seçin.</span><span lang="en">Click <strong>Load unpacked</strong> and choose the project folder.</span></li>
+</ol>
+<pre><code>git clone https://github.com/tariktunc/talitha-shorts-auto-scroll-chrome-extension.git</code></pre>
+
+<h2 id="kullanim"><span lang="tr">Kullanım</span><span lang="en">Usage</span></h2>
+<p><span lang="tr">Bir Shorts videosu açın. Eklenti açıkken simgede yeşil <code>ON</code> rozeti görünür. Kapatmak için simgeye tıklayıp pencerede düğmeyi çevirin; rozet gri <code>OFF</code> olur.</span><span lang="en">Open any Short. While the extension is on, the icon shows a green <code>ON</code> badge. To turn it off, click the icon and flip the switch; the badge turns grey <code>OFF</code>.</span></p>
+<table><tr><th><span lang="tr">Rozet</span><span lang="en">Badge</span></th><th><span lang="tr">Anlamı</span><span lang="en">Meaning</span></th></tr>
+<tr><td><code>ON</code> (<span lang="tr">yeşil</span><span lang="en">green</span>)</td><td><span lang="tr">YouTube sekmesindesiniz ve düğme açık.</span><span lang="en">You are on a YouTube tab and the switch is on.</span></td></tr>
+<tr><td><code>OFF</code> (<span lang="tr">gri</span><span lang="en">grey</span>)</td><td><span lang="tr">YouTube dışında bir sekmedesiniz veya düğme kapalı.</span><span lang="en">You are on a non-YouTube tab, or the switch is off.</span></td></tr></table>
+
+<h2 id="calisma"><span lang="tr">Nasıl çalışır</span><span lang="en">How it works</span></h2>
+<ol class="steps">
+<li><span lang="tr">Her 250 ms'de adresin <code>/shorts/</code> ile başlayıp başlamadığına bakar.</span><span lang="en">Checks every 250 ms that the address starts with <code>/shorts/</code>.</span></li>
+<li><span lang="tr">Ekranın ortasını kaplayan videoyu aktif video sayar.</span><span lang="en">Treats the video covering the screen centre as active.</span></li>
+<li><span lang="tr">YouTube videoyu döngüye alır ve bitince <code>ended</code> olayı vermeden başa sarar. Bu yüzden eklenti bitmesine 0,35 saniye kala geçer. Başa sarmayı ve <code>ended</code> bayrağını yedek olarak izler.</span><span lang="en">YouTube loops the clip and rewinds without firing <code>ended</code>, so the extension advances 0.35 s before the end. Rewind and the <code>ended</code> flag are watched as backups.</span></li>
+<li><span lang="tr">Geçiş için "Sonraki video" düğmesine tıklar; bulunamazsa aşağı ok tuşunu gönderir.</span><span lang="en">Clicks "Next video"; sends the down-arrow key if the button cannot be found.</span></li>
+<li><span lang="tr">Geçişler arasında 1,5 saniye bekler, aynı videoda iki kez geçmez, sekme görünür değilse hiç geçmez.</span><span lang="en">Waits 1.5 s between jumps, never advances twice on one video, and never advances in a hidden tab.</span></li>
+</ol>
+
+<h2 id="izinler"><span lang="tr">İzinler</span><span lang="en">Permissions</span></h2>
+<table><tr><th><span lang="tr">İzin</span><span lang="en">Permission</span></th><th><span lang="tr">Neden</span><span lang="en">Why</span></th></tr>
+<tr><td><code>storage</code></td><td><span lang="tr">Açık/kapalı durumunu saklamak için.</span><span lang="en">To remember the on/off state.</span></td></tr>
+<tr><td><code>https://www.youtube.com/*</code></td><td><span lang="tr">Rozet için sekmenin adresine bakmak ve Shorts sayfasında çalışmak için. Başka sitelerin adresini okuyamaz.</span><span lang="en">To read the tab address for the badge and to run on Shorts pages. It cannot read any other site.</span></td></tr></table>
+<div class="callout"><span lang="tr">Hiçbir veri toplanmaz, hiçbir sunucuya istek gönderilmez. Kaynak kodun tamamı repoda okunabilir halde durur.</span><span lang="en">No data is collected and no request is sent to any server. The full source is readable in the repository.</span></div>
+
+<h2 id="sss"><span lang="tr">Sık sorulanlar</span><span lang="en">FAQ</span></h2>
+<details><summary><span lang="tr">Ana sayfadaki Shorts şeridinde neden çalışmıyor?</span><span lang="en">Why does it not work in the Shorts shelf on the home page?</span></summary><p><span lang="tr">Eklenti yalnızca <code>youtube.com/shorts/</code> sayfasında çalışır. Şeritteki videoya tıklayıp Shorts sayfasına geçtiğinizde devreye girer.</span><span lang="en">It only runs on <code>youtube.com/shorts/</code>. It starts working once you open a Short in its own page.</span></p></details>
+<details><summary><span lang="tr">Rozet neden gri OFF görünüyor?</span><span lang="en">Why is the badge grey OFF?</span></summary><p><span lang="tr">YouTube dışında bir sekmedesiniz ya da düğme kapalı. YouTube sekmesine geçin ve pencerede düğmenin açık olduğundan emin olun.</span><span lang="en">Either you are on a non-YouTube tab or the switch is off. Switch to a YouTube tab and check the switch in the popup.</span></p></details>
+<details><summary><span lang="tr">Yeni dil nasıl eklenir?</span><span lang="en">How do I add a language?</span></summary><p><span lang="tr"><code>_locales/en/messages.json</code> dosyasını <code>_locales/&lt;dil-kodu&gt;/messages.json</code> olarak kopyalayıp metinleri çevirin.</span><span lang="en">Copy <code>_locales/en/messages.json</code> to <code>_locales/&lt;lang-code&gt;/messages.json</code> and translate the strings.</span></p></details>
+<details><summary><span lang="tr">Bir videoyu geri sarınca ne olur?</span><span lang="en">What if I rewind a video?</span></summary><p><span lang="tr">Kullanıcı videoyu geri sararsa eklenti geçiş yapmaz; yalnızca doğal bitişi yakalar.</span><span lang="en">If you rewind it yourself, the extension does not advance; it only reacts to a natural end.</span></p></details>
+
+<h2 id="gelistirme"><span lang="tr">Geliştirme</span><span lang="en">Development</span></h2>
+<p><span lang="tr">Node.js 18 veya üstü gerekir. Birim testleri için ek paket gerekmez.</span><span lang="en">Node.js 18 or newer. Unit tests need no extra packages.</span></p>
+<pre><code>node --test        # 35 <span lang="tr">birim testi</span><span lang="en">unit tests</span></code></pre>
+<p><span lang="tr">Uçtan uca testler eklentiyi gerçek bir Chromium'a yükleyip sürer (Playwright ve internet gerekir):</span><span lang="en">End-to-end tests load the extension into a real Chromium (needs Playwright and internet):</span></p>
+<pre><code>npm install
+npx playwright-core install chromium
+npm run test:e2e   # 13 <span lang="tr">uçtan uca test</span><span lang="en">end-to-end tests</span></code></pre>
+<table><tr><th><span lang="tr">Dosya</span><span lang="en">File</span></th><th><span lang="tr">Görev</span><span lang="en">Role</span></th></tr>
+<tr><td><code>manifest.json</code></td><td>Manifest V3</td></tr>
+<tr><td><code>logic.js</code></td><td><span lang="tr">Karar mantığı, DOM'a dokunmaz, Node'da test edilir</span><span lang="en">Decision logic, DOM-free, tested in Node</span></td></tr>
+<tr><td><code>content.js</code></td><td><span lang="tr">Sayfayı izler, videoyu bulur, düğmeye tıklar</span><span lang="en">Watches the page, finds the video, clicks the button</span></td></tr>
+<tr><td><code>background.js</code></td><td><span lang="tr">ON / OFF rozeti</span><span lang="en">ON / OFF badge</span></td></tr>
+<tr><td><code>popup.*</code></td><td><span lang="tr">Aç/kapa penceresi</span><span lang="en">On/off popup</span></td></tr></table>
+
+<h2 id="sinirlar"><span lang="tr">Bilinen sınırlar</span><span lang="en">Known limits</span></h2>
+<ul>
+<li><span lang="tr">Yalnızca <code>/shorts/</code> sayfasında çalışır.</span><span lang="en">Works on <code>/shorts/</code> pages only.</span></li>
+<li><span lang="tr">YouTube sayfa yapısını değiştirirse "Sonraki video" seçicisi (<code>#navigation-button-down button</code>) güncellenmelidir.</span><span lang="en">If YouTube changes its markup, the "Next video" selector (<code>#navigation-button-down button</code>) must be updated.</span></li>
+<li><span lang="tr">Chrome Web Store'da yayınlanmış değildir.</span><span lang="en">Not published on the Chrome Web Store.</span></li>
+</ul>
+</article></div>
+<footer><div class="wrap">
+<span>© 2026 <a href="https://blakfy.com">Blakfy Studio</a> · MIT</span>
+<span><a href="https://github.com/tariktunc/talitha-shorts-auto-scroll-chrome-extension"><span lang="tr">Kaynak kod</span><span lang="en">Source code</span></a> · <a href="https://github.com/tariktunc/talitha-shorts-auto-scroll-chrome-extension/issues"><span lang="tr">Sorun bildir</span><span lang="en">Report an issue</span></a></span>
+</div></footer>
+</body></html>
