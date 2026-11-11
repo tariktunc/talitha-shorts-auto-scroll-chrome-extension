@@ -21,7 +21,7 @@ header.nav .wrap{display:flex;align-items:center;gap:20px;height:60px}
 .btn.primary{background:var(--accent);color:var(--on-accent)}
 .btn.ghost{border-color:rgba(255,255,255,.45);color:var(--hero-fg)}
 .badges{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:26px}
-.badges span{font-size:13px;padding:4px 12px;border-radius:999px;background:rgba(255,255,255,.12)}
+.badges>span{font-size:13px;padding:4px 12px;border-radius:999px;background:rgba(255,255,255,.12)}
 section.block{padding:64px 0}section.alt{background:var(--card)}
 h2{font-size:30px;margin:0 0 8px}p.sub{color:var(--muted);margin:0 0 32px;max-width:720px}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:18px}
